@@ -10,7 +10,8 @@ import {
   LogOut, 
   Menu, 
   X,
-  ChevronRight
+  ChevronRight,
+  LogIn
 } from 'lucide-react'
 
 // Pages
@@ -127,16 +128,28 @@ function App() {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
-        <header className="h-16 bg-white border-b px-6 flex items-center justify-between lg:justify-end sticky top-0 z-30">
-          <button onClick={() => setIsMenuOpen(true)} className="lg:hidden p-2 bg-gray-100 rounded-lg"><Menu /></button>
-          <div className="flex items-center gap-4">
-            <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-primary font-bold text-sm">
+        <header className="h-16 bg-white border-b px-4 lg:px-8 flex items-center justify-between sticky top-0 z-30">
+          <div className="flex items-center gap-3 lg:hidden">
+            <button onClick={() => setIsMenuOpen(true)} className="p-2 bg-gray-50 rounded-xl text-gray-600 active:scale-95 transition-transform">
+              <Menu size={24} />
+            </button>
+            <div className="bg-primary p-1 rounded-lg text-white">
+              <BookOpen size={20} />
+            </div>
+          </div>
+          
+          <div className="flex items-center gap-3">
+            <div className="text-left hidden sm:block">
+              <p className="text-xs text-gray-400 font-bold leading-none mb-1">حساب الطالب</p>
+              <p className="text-sm font-black text-gray-800">{profile ? profile.full_name : 'زائر'}</p>
+            </div>
+            <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary font-black shadow-sm border border-primary/20">
               {profile ? profile.full_name[0] : '?'}
             </div>
           </div>
         </header>
 
-        <main className="p-6 lg:p-8 max-w-6xl mx-auto w-full">
+        <main className="p-4 md:p-6 lg:p-8 max-w-6xl mx-auto w-full pb-20 lg:pb-8">
           <Routes>
             <Route path="/" element={<HomePage profile={profile} />} />
             <Route path="/lectures" element={<LecturesPage profile={profile} />} />
@@ -157,12 +170,31 @@ function App() {
               <span className="font-bold text-lg">القائمة</span>
               <button onClick={() => setIsMenuOpen(false)}><X /></button>
             </div>
-            <nav className="space-y-2">
+            <nav className="space-y-2 flex-grow">
               <NavLink to="/" icon={Home}>الرئيسية</NavLink>
               <NavLink to="/lectures" icon={BookOpen}>المحاضرات</NavLink>
               <NavLink to="/schedules" icon={Calendar}>الجدول</NavLink>
               <NavLink to="/results" icon={Trophy}>النتائج</NavLink>
             </nav>
+
+            <div className="mt-8 pt-6 border-t">
+              {profile ? (
+                <button 
+                  onClick={() => { handleLogout(); setIsMenuOpen(false); }} 
+                  className="w-full flex items-center gap-3 px-4 py-3 text-red-500 bg-red-50 rounded-xl font-black transition-all"
+                >
+                  <LogOut size={20} /> تسجيل خروج
+                </button>
+              ) : (
+                <Link 
+                  to="/login" 
+                  onClick={() => setIsMenuOpen(false)}
+                  className="w-full flex items-center justify-center gap-2 bg-primary text-white py-4 rounded-xl font-black shadow-lg shadow-primary/20"
+                >
+                  <LogIn size={20} /> دخول الطلاب
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       )}
