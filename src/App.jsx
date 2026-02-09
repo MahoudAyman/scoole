@@ -20,7 +20,6 @@ import LecturesPage from './pages/LecturesPage'
 import SchedulesPage from './pages/SchedulesPage'
 import ResultsPage from './pages/ResultsPage'
 import LoginPage from './pages/LoginPage'
-import ProfilePage from './pages/ProfilePage'
 
 function App() {
   const [profile, setProfile] = useState(null)
@@ -156,7 +155,6 @@ function App() {
             <Route path="/schedules" element={<SchedulesPage profile={profile} />} />
             <Route path="/results" element={<ResultsPage profile={profile} />} />
             <Route path="/login" element={<LoginPage />} />
-            <Route path="/profile" element={<ProfilePage profile={profile} />} />
           </Routes>
         </main>
       </div>
